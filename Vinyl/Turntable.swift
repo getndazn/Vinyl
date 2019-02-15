@@ -55,20 +55,22 @@ public final class Turntable: URLSession {
     }
     
     public convenience init(vinylName: String, baseVinylName: String? = nil, bundle: Bundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
-        var plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
+        let plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
 
+        var combinedPlastic = plastic
         if let baseVinylName = baseVinylName,
             let basePlastic = Turntable.createPlastic(vinyl: baseVinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode) {
 
-            plastic?.append(contentsOf: basePlastic)
+            combinedPlastic?.append(contentsOf: basePlastic)
         }
 
-        let vinyl = Vinyl(plastic: plastic ?? [])
+        let vinyl = Vinyl(plastic: combinedPlastic ?? [])
         self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
-        
+
+        let recordingVinyl = Vinyl(plastic: plastic ?? [])
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
-            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+            recorder = Recorder(wax: Wax(vinyl: recordingVinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
         default:
             recorder = nil
             recordingSession = nil
