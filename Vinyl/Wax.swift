@@ -24,7 +24,10 @@ struct Wax {
     }
     
     mutating func add(track: Track) {
-        if baseTracks.contains(track) == false {
+        if baseTracks.filter({
+            (baseTrack) -> Bool in
+            baseTrack.request.url == track.request.url
+        }).isEmpty {
             tracks.append(track)
         }
     }
