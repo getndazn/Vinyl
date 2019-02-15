@@ -31,6 +31,13 @@ class TurntableTests: XCTestCase {
         
         multipleCallTest(turntable)
     }
+
+    func test_Vinyl_base() {
+
+        let turntable = Turntable(vinylName: "vinyl_single_1", baseVinylName: "vinyl_single_2")
+
+        multipleCallTest(turntable)
+    }
     
     func test_DVR_multiple() {
         

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3764DFD92216E7BC001040E2 /* vinyl_single_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFD82216E7BC001040E2 /* vinyl_single_2.json */; };
+		3764DFDA2216E7BC001040E2 /* vinyl_single_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFD82216E7BC001040E2 /* vinyl_single_2.json */; };
+		3764DFDB2216E7BC001040E2 /* vinyl_single_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFD82216E7BC001040E2 /* vinyl_single_2.json */; };
+		3764DFDD2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
+		3764DFDE2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
+		3764DFDF2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
 		4CC9F3841E047BF3003C5BB4 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC9F3831E047BF3003C5BB4 /* SwiftCheck.framework */; };
 		4CC9F3861E047BFD003C5BB4 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC9F3851E047BFD003C5BB4 /* SwiftCheck.framework */; };
 		4CC9F3881E047C08003C5BB4 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC9F3871E047C08003C5BB4 /* SwiftCheck.framework */; };
@@ -169,6 +175,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3764DFD82216E7BC001040E2 /* vinyl_single_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vinyl_single_2.json; sourceTree = "<group>"; };
+		3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vinyl_single_1.json; sourceTree = "<group>"; };
 		4CC9F3831E047BF3003C5BB4 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/iOS/SwiftCheck.framework; sourceTree = "<group>"; };
 		4CC9F3851E047BFD003C5BB4 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/Mac/SwiftCheck.framework; sourceTree = "<group>"; };
 		4CC9F3871E047C08003C5BB4 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/tvOS/SwiftCheck.framework; sourceTree = "<group>"; };
@@ -300,6 +308,8 @@
 				C70886351C74D470002DBB2C /* dvr_single.json */,
 				C70886301C74D452002DBB2C /* vinyl_multiple.json */,
 				C70886311C74D452002DBB2C /* vinyl_single.json */,
+				3764DFD82216E7BC001040E2 /* vinyl_single_2.json */,
+				3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */,
 				E530E6171C864E1800D9B590 /* vinyl_upload.json */,
 			);
 			path = Fixtures;
@@ -614,7 +624,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DBD4CA01C79CB18008C5487 /* dvr_multiple.json in Resources */,
+				3764DFDA2216E7BC001040E2 /* vinyl_single_2.json in Resources */,
 				7DBD4CA11C79CB18008C5487 /* dvr_single.json in Resources */,
+				3764DFDE2216E7F3001040E2 /* vinyl_single_1.json in Resources */,
 				E530E6191C864E1800D9B590 /* vinyl_upload.json in Resources */,
 				7DBD4CA21C79CB18008C5487 /* vinyl_multiple.json in Resources */,
 				7DBD4CA31C79CB18008C5487 /* vinyl_single.json in Resources */,
@@ -633,7 +645,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DBD4D061C79CDAF008C5487 /* dvr_multiple.json in Resources */,
+				3764DFDB2216E7BC001040E2 /* vinyl_single_2.json in Resources */,
 				7DBD4D071C79CDAF008C5487 /* dvr_single.json in Resources */,
+				3764DFDF2216E7F3001040E2 /* vinyl_single_1.json in Resources */,
 				E530E61A1C864E1800D9B590 /* vinyl_upload.json in Resources */,
 				7DBD4D081C79CDAF008C5487 /* vinyl_multiple.json in Resources */,
 				7DBD4D091C79CDAF008C5487 /* vinyl_single.json in Resources */,
@@ -652,7 +666,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C70886361C74D470002DBB2C /* dvr_multiple.json in Resources */,
+				3764DFD92216E7BC001040E2 /* vinyl_single_2.json in Resources */,
 				C70886371C74D470002DBB2C /* dvr_single.json in Resources */,
+				3764DFDD2216E7F3001040E2 /* vinyl_single_1.json in Resources */,
 				E530E6181C864E1800D9B590 /* vinyl_upload.json in Resources */,
 				C70886321C74D452002DBB2C /* vinyl_multiple.json in Resources */,
 				C70886331C74D452002DBB2C /* vinyl_single.json in Resources */,

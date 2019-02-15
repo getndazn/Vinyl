@@ -54,8 +54,15 @@ public final class Turntable: URLSession {
         self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
     }
     
-    public convenience init(vinylName: String, bundle: Bundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
-        let plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
+    public convenience init(vinylName: String, baseVinylName: String? = nil, bundle: Bundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
+        var plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
+
+        if let baseVinylName = baseVinylName,
+            let basePlastic = Turntable.createPlastic(vinyl: baseVinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode) {
+
+            plastic?.append(contentsOf: basePlastic)
+        }
+
         let vinyl = Vinyl(plastic: plastic ?? [])
         self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
         
