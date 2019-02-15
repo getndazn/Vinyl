@@ -9,9 +9,14 @@
 struct Wax {
     
     var tracks: [Track] = []
+    var baseTracks: [Track] = []
     
-    init(vinyl: Vinyl) {
+    init(vinyl: Vinyl,
+         baseVinyl: Vinyl? = nil) {
         tracks.append(contentsOf: vinyl.tracks)
+        if let baseVinyl = baseVinyl {
+            baseTracks.append(contentsOf: baseVinyl.tracks)
+        }
     }
     
     init(tracks: [Track]) {
@@ -19,6 +24,8 @@ struct Wax {
     }
     
     mutating func add(track: Track) {
-        tracks.append(track)
+        if baseTracks.contains(track) == false {
+            tracks.append(track)
+        }
     }
 }

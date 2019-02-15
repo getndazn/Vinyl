@@ -58,9 +58,11 @@ public final class Turntable: URLSession {
         let plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
 
         var combinedPlastic = plastic
+        var baseVinyl: Vinyl?
         if let baseVinylName = baseVinylName,
             let basePlastic = Turntable.createPlastic(vinyl: baseVinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode) {
 
+            baseVinyl = Vinyl(plastic: basePlastic)
             combinedPlastic?.append(contentsOf: basePlastic)
         }
 
@@ -70,7 +72,7 @@ public final class Turntable: URLSession {
         let recordingVinyl = Vinyl(plastic: plastic ?? [])
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
-            recorder = Recorder(wax: Wax(vinyl: recordingVinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+            recorder = Recorder(wax: Wax(vinyl: recordingVinyl, baseVinyl: baseVinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
         default:
             recorder = nil
             recordingSession = nil
