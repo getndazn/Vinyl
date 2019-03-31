@@ -13,12 +13,6 @@
 		3764DFDD2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
 		3764DFDE2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
 		3764DFDF2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
-		3764DFE222170181001040E2 /* testWrongPassword.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFE022170180001040E2 /* testWrongPassword.json */; };
-		3764DFE322170181001040E2 /* testWrongPassword.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFE022170180001040E2 /* testWrongPassword.json */; };
-		3764DFE422170181001040E2 /* testWrongPassword.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFE022170180001040E2 /* testWrongPassword.json */; };
-		3764DFE522170181001040E2 /* baseResponsesDACH.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFE122170180001040E2 /* baseResponsesDACH.json */; };
-		3764DFE622170181001040E2 /* baseResponsesDACH.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFE122170180001040E2 /* baseResponsesDACH.json */; };
-		3764DFE722170181001040E2 /* baseResponsesDACH.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFE122170180001040E2 /* baseResponsesDACH.json */; };
 		4CC9F3841E047BF3003C5BB4 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC9F3831E047BF3003C5BB4 /* SwiftCheck.framework */; };
 		4CC9F3861E047BFD003C5BB4 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC9F3851E047BFD003C5BB4 /* SwiftCheck.framework */; };
 		4CC9F3881E047C08003C5BB4 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC9F3871E047C08003C5BB4 /* SwiftCheck.framework */; };
@@ -183,8 +177,6 @@
 /* Begin PBXFileReference section */
 		3764DFD82216E7BC001040E2 /* vinyl_single_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vinyl_single_2.json; sourceTree = "<group>"; };
 		3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vinyl_single_1.json; sourceTree = "<group>"; };
-		3764DFE022170180001040E2 /* testWrongPassword.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testWrongPassword.json; sourceTree = "<group>"; };
-		3764DFE122170180001040E2 /* baseResponsesDACH.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = baseResponsesDACH.json; sourceTree = "<group>"; };
 		4CC9F3831E047BF3003C5BB4 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/iOS/SwiftCheck.framework; sourceTree = "<group>"; };
 		4CC9F3851E047BFD003C5BB4 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/Mac/SwiftCheck.framework; sourceTree = "<group>"; };
 		4CC9F3871E047C08003C5BB4 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/tvOS/SwiftCheck.framework; sourceTree = "<group>"; };
@@ -313,8 +305,6 @@
 			isa = PBXGroup;
 			children = (
 				C70886341C74D470002DBB2C /* dvr_multiple.json */,
-				3764DFE122170180001040E2 /* baseResponsesDACH.json */,
-				3764DFE022170180001040E2 /* testWrongPassword.json */,
 				C70886351C74D470002DBB2C /* dvr_single.json */,
 				C70886301C74D452002DBB2C /* vinyl_multiple.json */,
 				C70886311C74D452002DBB2C /* vinyl_single.json */,
@@ -640,8 +630,6 @@
 				3764DFDE2216E7F3001040E2 /* vinyl_single_1.json in Resources */,
 				E530E6191C864E1800D9B590 /* vinyl_upload.json in Resources */,
 				7DBD4CA21C79CB18008C5487 /* vinyl_multiple.json in Resources */,
-				3764DFE322170181001040E2 /* testWrongPassword.json in Resources */,
-				3764DFE622170181001040E2 /* baseResponsesDACH.json in Resources */,
 				7DBD4CA31C79CB18008C5487 /* vinyl_single.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,8 +651,6 @@
 				3764DFDF2216E7F3001040E2 /* vinyl_single_1.json in Resources */,
 				E530E61A1C864E1800D9B590 /* vinyl_upload.json in Resources */,
 				7DBD4D081C79CDAF008C5487 /* vinyl_multiple.json in Resources */,
-				3764DFE422170181001040E2 /* testWrongPassword.json in Resources */,
-				3764DFE722170181001040E2 /* baseResponsesDACH.json in Resources */,
 				7DBD4D091C79CDAF008C5487 /* vinyl_single.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,8 +672,6 @@
 				3764DFDD2216E7F3001040E2 /* vinyl_single_1.json in Resources */,
 				E530E6181C864E1800D9B590 /* vinyl_upload.json in Resources */,
 				C70886321C74D452002DBB2C /* vinyl_multiple.json in Resources */,
-				3764DFE222170181001040E2 /* testWrongPassword.json in Resources */,
-				3764DFE522170181001040E2 /* baseResponsesDACH.json in Resources */,
 				C70886331C74D452002DBB2C /* vinyl_single.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
