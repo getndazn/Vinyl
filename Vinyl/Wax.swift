@@ -26,7 +26,8 @@ struct Wax {
     mutating func add(track: Track) {
         if baseTracks.filter({
             (baseTrack) -> Bool in
-            baseTrack.request.url == track.request.url
+            let registry = RequestMatcherRegistry(types: [.body, .method, .query, .path])
+            return registry.matchableRequests(request: track.request, with: baseTrack.request)
         }).isEmpty {
             tracks.append(track)
         }
