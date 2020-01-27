@@ -23,7 +23,7 @@ final class UniqueTrackMatcher: TrackMatcher {
     
     func matchable(track: Track, for request: Request) -> Bool {
         
-        if let index = availableTracks.index(of: track) {
+        if let index = availableTracks.firstIndex(of: track) {
             availableTracks.remove(at: index)
             return true
         }
