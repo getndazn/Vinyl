@@ -71,7 +71,7 @@ public final class Turntable: URLSession {
 
         let recordingVinyl = Vinyl(plastic: plastic ?? [])
         switch turntableConfiguration.recordingMode {
-        case .missingVinyl where plastic == nil, .missingTracks:
+        case .missingVinyl, .missingTracks:
             recorder = Recorder(wax: Wax(vinyl: recordingVinyl, baseVinyl: baseVinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
         default:
             recorder = nil
@@ -240,7 +240,7 @@ extension Turntable {
         player = Turntable.createPlayer(with: vinyl, configuration: turntableConfiguration)
 
         switch turntableConfiguration.recordingMode {
-        case .missingVinyl where plastic == nil, .missingTracks:
+        case .missingVinyl, .missingTracks:
             recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
         default:
             recorder = nil
