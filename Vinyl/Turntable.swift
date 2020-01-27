@@ -182,6 +182,7 @@ extension Turntable {
     
     public override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> Foundation.URLSessionDataTask {
         let request = URLRequest(url: url)
+        print("Request for: " + (url.absoluteString))
         return dataTask(with: request, completionHandler: completionHandler)
     }
     
@@ -191,7 +192,10 @@ extension Turntable {
             return try playVinyl(request: request, completionHandler: completionHandler) as URLSessionDataTask
         }
         catch TurntableError.trackNotFound {
+            print("Track not found for: " + (request.url?.absoluteString ?? "(no url)"))
             if let session = recordingSession {
+
+                print("Performing network request")
                 return session.dataTask(with: request, completionHandler: recordingHandler(request: request, completionHandler: completionHandler))
             }
             else {
@@ -240,7 +244,7 @@ extension Turntable {
         player = Turntable.createPlayer(with: vinyl, configuration: turntableConfiguration)
 
         switch turntableConfiguration.recordingMode {
-        case .missingVinyl, .missingTracks:
+        case .missingVinyl where plastic == nil, .missingTracks:
             recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
         default:
             recorder = nil

@@ -64,5 +64,13 @@ extension Response: Hashable {
         let error = self.error.map { "\($0)" } ?? ""
         
         return "\(urlResponse?.hashValue ?? 0):\((body)):\(error)".hashValue
-    }    
+    }
+
+    func hash(into hasher: inout Hasher) {
+        let body = self.body.map { "\($0)" } ?? ""
+        let error = self.error.map { "\($0)" } ?? ""
+
+        hasher.combine(body)
+        hasher.combine(error)
+    }
 }

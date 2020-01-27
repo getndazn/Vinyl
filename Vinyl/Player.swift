@@ -24,7 +24,7 @@ struct Player {
         guard let track = self.seekTrack(for: request) else {
             throw TurntableError.trackNotFound
         }
-        
+        print("Playing vinyl for: " + (request.url?.absoluteString ?? "(no url)"))
         return (data: track.response.body as Data?, response: track.response.urlResponse, error: track.response.error)
     }
     

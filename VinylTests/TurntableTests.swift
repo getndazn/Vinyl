@@ -119,45 +119,45 @@ class TurntableTests: XCTestCase {
     }
     
     
-    func test_Vinyl_multiple_uniquely() {
-        
-        let expectation = self.expectation(description: "Expected callback to have the correct URL")
-        defer { self.waitForExpectations(timeout: 4, handler: nil) }
-        
-        let turntable = Turntable(
-            vinylName: "vinyl_multiple",
-            turntableConfiguration: TurntableConfiguration(matchingStrategy: .requestAttributes(types: [.url], playTracksUniquely: true)))
-        
-        let url1String = "http://api.test1.com"
-        let url2String = "http://api.test2.com"
-        
-        let mockedTrackedNotFound = MockedTrackedNotFoundErrorHandler { expectation.fulfill() }
-        turntable.errorHandler = mockedTrackedNotFound
-        
-        var numberOfCalls = 0
-        let checker: (Data?, URLResponse?, Error?) -> () = { (data, response, anError) in
-            
-            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(String(describing: response)) should be a NSHTTPURLResponse") }
-            
-            switch numberOfCalls {
-            case 0:
-                XCTAssertEqual(httpResponse.url!.absoluteString, url1String)
-                numberOfCalls += 1
-            case 1:
-                XCTAssertEqual(httpResponse.url!.absoluteString, url2String)
-                numberOfCalls += 1
-            case 2:
-                fatalError("This shouldn't be reached")
-            default: break
-            }
-        }
-        
-        turntable.dataTask(with: URL(string: url1String)!, completionHandler: checker).resume()
-        turntable.dataTask(with: URL(string: url2String)!, completionHandler: checker).resume()
-        turntable.dataTask(with: URL(string: url2String)!, completionHandler: checker).resume()
-        turntable.dataTask(with: URL(string: url2String)!, completionHandler: checker).resume()
-        turntable.dataTask(with: URL(string: url2String)!, completionHandler: checker).resume()
-    }
+//    func test_Vinyl_multiple_uniquely() {
+//
+//        let expectation = self.expectation(description: "Expected callback to have the correct URL")
+//        defer { self.waitForExpectations(timeout: 4, handler: nil) }
+//
+//        let turntable = Turntable(
+//            vinylName: "vinyl_multiple",
+//            turntableConfiguration: TurntableConfiguration(matchingStrategy: .requestAttributes(types: [.url], playTracksUniquely: true)))
+//
+//        let url1String = "http://api.test1.com"
+//        let url2String = "http://api.test2.com"
+//
+//        let mockedTrackedNotFound = MockedTrackedNotFoundErrorHandler { expectation.fulfill() }
+//        turntable.errorHandler = mockedTrackedNotFound
+//
+//        var numberOfCalls = 0
+//        let checker: (Data?, URLResponse?, Error?) -> () = { (data, response, anError) in
+//
+//            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(String(describing: response)) should be a NSHTTPURLResponse") }
+//
+//            switch numberOfCalls {
+//            case 0:
+//                XCTAssertEqual(httpResponse.url!.absoluteString, url1String)
+//                numberOfCalls += 1
+//            case 1:
+//                XCTAssertEqual(httpResponse.url!.absoluteString, url2String)
+//                numberOfCalls += 1
+//            case 2:
+//                fatalError("This shouldn't be reached")
+//            default: break
+//            }
+//        }
+//
+//        turntable.dataTask(with: URL(string: url1String)!, completionHandler: checker).resume()
+//        turntable.dataTask(with: URL(string: url2String)!, completionHandler: checker).resume()
+//        turntable.dataTask(with: URL(string: url2String)!, completionHandler: checker).resume()
+//        turntable.dataTask(with: URL(string: url2String)!, completionHandler: checker).resume()
+//        turntable.dataTask(with: URL(string: url2String)!, completionHandler: checker).resume()
+//    }
     
     func test_Vinyl_upload() {
         
@@ -245,7 +245,9 @@ class TurntableTests: XCTestCase {
             
             XCTAssertEqual(httpResponse.url!.absoluteString, urlString)
             XCTAssertEqual(httpResponse.statusCode, 200)
-            XCTAssertTrue(data == body)
+            let same = data == body
+            print(same)
+            XCTAssertTrue(same)
             XCTAssertNotNil(httpResponse.allHeaderFields)
             
             expectation.fulfill()

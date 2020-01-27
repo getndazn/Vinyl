@@ -66,10 +66,11 @@ extension Track {
 }
 
 extension Track: Hashable {
-    
-    public var hashValue: Int {
-        return request.hashValue ^ response.hashValue
-    }
+
+    public func hash(into hasher: inout Hasher) {
+    hasher.combine(request)
+    hasher.combine(response)
+}
     
 }
 
