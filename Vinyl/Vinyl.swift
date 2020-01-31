@@ -10,7 +10,7 @@ import Foundation
 
 public struct Vinyl {
     
-    let tracks: [Track]
+    public let tracks: [Track]
     
     public init(plastic: Plastic) {
         tracks = plastic.map(Track.init)

@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct Response {
-    let urlResponse: HTTPURLResponse?
-    let body: Data?
-    let error: Error?
+public struct Response {
+    public let urlResponse: HTTPURLResponse?
+    public let body: Data?
+    public let error: Error?
     
     init(urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {
         self.urlResponse = urlResponse
@@ -50,7 +50,7 @@ extension Response {
     }
 }
 
-func ==(lhs: Response, rhs: Response) -> Bool {
+public func ==(lhs: Response, rhs: Response) -> Bool {
     return lhs.urlResponse == rhs.urlResponse
         && lhs.body == rhs.body
         && lhs.error?._domain == rhs.error?._domain
@@ -59,14 +59,14 @@ func ==(lhs: Response, rhs: Response) -> Bool {
 
 extension Response: Hashable {
     
-    var hashValue: Int {        
+    public var hashValue: Int {
         let body = self.body.map { "\($0)" } ?? ""
         let error = self.error.map { "\($0)" } ?? ""
         
         return "\(urlResponse?.hashValue ?? 0):\((body)):\(error)".hashValue
     }
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         let body = self.body.map { "\($0)" } ?? ""
         let error = self.error.map { "\($0)" } ?? ""
 
