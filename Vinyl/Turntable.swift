@@ -60,10 +60,14 @@ public final class Turntable: URLSession {
         var combinedPlastic = plastic
         var baseVinyl: Vinyl?
         if let baseVinylName = baseVinylName,
-            let basePlastic = Turntable.createPlastic(vinyl: baseVinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode) {
+            let basePlastic = Turntable.createPlastic(vinyl: baseVinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode, isBaseVinyl: true) {
 
             baseVinyl = Vinyl(plastic: basePlastic)
-            combinedPlastic?.append(contentsOf: basePlastic)
+            if combinedPlastic != nil {
+                combinedPlastic?.append(contentsOf: basePlastic)
+            } else {
+                combinedPlastic = basePlastic
+            }
         }
 
         let vinyl = Vinyl(plastic: combinedPlastic ?? [])
@@ -286,16 +290,30 @@ extension Turntable {
         return plastic
     }
     
-    fileprivate static func createPlastic(vinyl vinylName: String, bundle: Bundle, recordingMode: RecordingMode) -> Plastic? {
-        if let plastic: Plastic = loadJSON(from: bundle, fileName: vinylName) {
-            return plastic
-        }
+    fileprivate static func createPlastic(vinyl vinylName: String, bundle: Bundle, recordingMode: RecordingMode, isBaseVinyl: Bool = false) -> Plastic? {
 
         switch recordingMode {
-        case .none, .missingTracks:
-            fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
-        case .missingVinyl:
+        case .none:
             return nil
+        case .missingTracks:
+            return loadPlastic(vinylName: vinylName, bundle: bundle)
+        case .missingVinyl:
+            if isBaseVinyl {
+                return loadPlastic(vinylName: vinylName, bundle: bundle)
+            } else {
+                return nil
+            }
+        }
+
+    }
+
+    fileprivate static func loadPlastic(vinylName: String, bundle: Bundle) -> Plastic? {
+        if let plastic: Plastic = loadJSON(from: bundle, fileName: vinylName) {
+            return plastic
+        } else {
+            fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
         }
     }
+
+
 }
