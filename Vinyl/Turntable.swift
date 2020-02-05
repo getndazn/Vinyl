@@ -292,19 +292,15 @@ extension Turntable {
     
     fileprivate static func createPlastic(vinyl vinylName: String, bundle: Bundle, recordingMode: RecordingMode, isBaseVinyl: Bool = false) -> Plastic? {
 
+        if isBaseVinyl {
+            return loadPlastic(vinylName: vinylName, bundle: bundle)
+        }
         switch recordingMode {
-        case .none:
+        case .none, .missingVinyl:
             return nil
         case .missingTracks:
             return loadPlastic(vinylName: vinylName, bundle: bundle)
-        case .missingVinyl:
-            if isBaseVinyl {
-                return loadPlastic(vinylName: vinylName, bundle: bundle)
-            } else {
-                return nil
-            }
         }
-
     }
 
     fileprivate static func loadPlastic(vinylName: String, bundle: Bundle) -> Plastic? {
