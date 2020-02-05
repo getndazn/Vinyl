@@ -296,9 +296,9 @@ extension Turntable {
             return loadPlastic(vinylName: vinylName, bundle: bundle)
         }
         switch recordingMode {
-        case .none, .missingVinyl:
+        case .missingVinyl:
             return nil
-        case .missingTracks:
+        case .missingTracks, .none:
             return loadPlastic(vinylName: vinylName, bundle: bundle)
         }
     }
