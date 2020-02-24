@@ -22,8 +22,8 @@ public final class Turntable: URLSession {
     var errorHandler: ErrorHandler = DefaultErrorHandler()
     fileprivate let turntableConfiguration: TurntableConfiguration
     fileprivate var player: Player?
-    fileprivate var recorder: Recorder?
-    fileprivate var recordingSession: URLSession?
+    public var recorder: Recorder?
+    public var recordingSession: URLSession?
     fileprivate let operationQueue: OperationQueue
     
     public init(configuration: TurntableConfiguration, delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
@@ -290,7 +290,7 @@ extension Turntable {
         return plastic
     }
     
-    fileprivate static func createPlastic(vinyl vinylName: String, bundle: Bundle, recordingMode: RecordingMode, isBaseVinyl: Bool = false) -> Plastic? {
+    public static func createPlastic(vinyl vinylName: String, bundle: Bundle, recordingMode: RecordingMode, isBaseVinyl: Bool = false) -> Plastic? {
 
         if isBaseVinyl {
             return loadPlastic(vinylName: vinylName, bundle: bundle)

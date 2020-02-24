@@ -17,12 +17,12 @@ public struct Track {
     public let request: Request
     public let response: Response
     
-    init(request: Request, response: Response) {
+    public init(request: Request, response: Response) {
         self.request = request
         self.response = response
     }
     
-    init(response: Response) {
+    public init(response: Response) {
         self.response = response
         
         let urlString = response.urlResponse?.url?.absoluteString
@@ -36,7 +36,7 @@ public struct Track {
 
 extension Track {
     
-    init(encodedTrack: EncodedObject) {
+    public init(encodedTrack: EncodedObject) {
         guard let encodedResponse = encodedTrack["response"] as? EncodedObject else {
             fatalError("request/response not found 😞 for Track: \(encodedTrack)")
         }

@@ -17,6 +17,17 @@ public enum RecordingMode {
     case none
     case missingTracks(recordingPath: String?)
     case missingVinyl(recordingPath: String?)
+
+    public var recordingPath: String? {
+        switch self {
+        case .none:
+            return nil
+        case .missingTracks(let recordingPath):
+            return recordingPath
+        case .missingVinyl(let recordingPath):
+            return recordingPath
+        }
+    }
 }
 
 public struct TurntableConfiguration {

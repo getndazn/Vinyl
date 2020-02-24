@@ -8,11 +8,11 @@
 
 import Foundation
 
-final class Recorder {
+public final class Recorder {
     var wax: Wax
     let recordingPath: String?
 
-    init(wax: Wax, recordingPath: String?) {
+    public init(wax: Wax, recordingPath: String?) {
         self.wax = wax
         self.recordingPath = recordingPath
     }

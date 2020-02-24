@@ -13,7 +13,7 @@ public struct Response {
     public let body: Data?
     public let error: Error?
     
-    init(urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {
+    public init(urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {
         self.urlResponse = urlResponse
         self.body = body
         self.error = error
@@ -22,7 +22,7 @@ public struct Response {
 
 extension Response {
     
-    init(encodedResponse: EncodedObject) {
+    public init(encodedResponse: EncodedObject) {
         guard
             let urlString = encodedResponse["url"] as? String,
             let url =  URL(string: urlString),
