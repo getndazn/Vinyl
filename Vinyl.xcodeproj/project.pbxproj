@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3706EE4424B483E200DEBBD7 /* SwiftCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 3706EE4324B483E200DEBBD7 /* SwiftCheck */; };
-		3706EE4624B483ED00DEBBD7 /* SwiftCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 3706EE4524B483ED00DEBBD7 /* SwiftCheck */; };
+		3706EE4A24B4846D00DEBBD7 /* SwiftCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 3706EE4924B4846D00DEBBD7 /* SwiftCheck */; };
+		3706EE4C24B4848C00DEBBD7 /* SwiftCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 3706EE4B24B4848C00DEBBD7 /* SwiftCheck */; };
+		3706EE4E24B4849200DEBBD7 /* SwiftCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 3706EE4D24B4849200DEBBD7 /* SwiftCheck */; };
 		3764DFD92216E7BC001040E2 /* vinyl_single_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFD82216E7BC001040E2 /* vinyl_single_2.json */; };
 		3764DFDA2216E7BC001040E2 /* vinyl_single_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFD82216E7BC001040E2 /* vinyl_single_2.json */; };
 		3764DFDB2216E7BC001040E2 /* vinyl_single_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFD82216E7BC001040E2 /* vinyl_single_2.json */; };
@@ -225,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DBD4C891C79CA24008C5487 /* Vinyl.framework in Frameworks */,
+				3706EE4C24B4848C00DEBBD7 /* SwiftCheck in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +234,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3706EE4624B483ED00DEBBD7 /* SwiftCheck in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3706EE4A24B4846D00DEBBD7 /* SwiftCheck in Frameworks */,
 				7DBD4CB31C79CC4D008C5487 /* Vinyl.framework in Frameworks */,
 				37A4EA67242C8DB7002F29E2 /* (null) in Frameworks */,
 			);
@@ -249,7 +251,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3706EE4424B483E200DEBBD7 /* SwiftCheck in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */,
+				3706EE4E24B4849200DEBBD7 /* SwiftCheck in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +464,9 @@
 				7DBD4C8B1C79CA24008C5487 /* PBXTargetDependency */,
 			);
 			name = "Vinyl-MacTests";
+			packageProductDependencies = (
+				3706EE4B24B4848C00DEBBD7 /* SwiftCheck */,
+			);
 			productName = "Vinyl-MacTests";
 			productReference = 7DBD4C881C79CA24008C5487 /* Vinyl-MacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -481,7 +486,6 @@
 			);
 			name = "Vinyl-tvOS";
 			packageProductDependencies = (
-				3706EE4524B483ED00DEBBD7 /* SwiftCheck */,
 			);
 			productName = "Vinyl-tvOS";
 			productReference = 7DBD4CA91C79CC4C008C5487 /* Vinyl.framework */;
@@ -503,6 +507,7 @@
 			);
 			name = "Vinyl-tvOSTests";
 			packageProductDependencies = (
+				3706EE4924B4846D00DEBBD7 /* SwiftCheck */,
 			);
 			productName = "Vinyl-tvOSTests";
 			productReference = 7DBD4CB21C79CC4D008C5487 /* Vinyl-tvOSTests.xctest */;
@@ -523,7 +528,6 @@
 			);
 			name = "Vinyl-iOS";
 			packageProductDependencies = (
-				3706EE4324B483E200DEBBD7 /* SwiftCheck */,
 			);
 			productName = Vinyl;
 			productReference = C75D79061C6DFE30004B92A9 /* Vinyl.framework */;
@@ -544,6 +548,9 @@
 				C75D79131C6DFE30004B92A9 /* PBXTargetDependency */,
 			);
 			name = "Vinyl-iOSTests";
+			packageProductDependencies = (
+				3706EE4D24B4849200DEBBD7 /* SwiftCheck */,
+			);
 			productName = VinylTests;
 			productReference = C75D79101C6DFE30004B92A9 /* Vinyl-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1298,12 +1305,17 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3706EE4324B483E200DEBBD7 /* SwiftCheck */ = {
+		3706EE4924B4846D00DEBBD7 /* SwiftCheck */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3706EE4224B483E200DEBBD7 /* XCRemoteSwiftPackageReference "SwiftCheck" */;
 			productName = SwiftCheck;
 		};
-		3706EE4524B483ED00DEBBD7 /* SwiftCheck */ = {
+		3706EE4B24B4848C00DEBBD7 /* SwiftCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3706EE4224B483E200DEBBD7 /* XCRemoteSwiftPackageReference "SwiftCheck" */;
+			productName = SwiftCheck;
+		};
+		3706EE4D24B4849200DEBBD7 /* SwiftCheck */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3706EE4224B483E200DEBBD7 /* XCRemoteSwiftPackageReference "SwiftCheck" */;
 			productName = SwiftCheck;
