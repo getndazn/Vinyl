@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/llvm-swift/FileCheck.git",
         "state": {
           "branch": null,
-          "revision": "9ed91cc30a1a325d989fac117f3f3065a16b9f76",
-          "version": "0.2.3"
+          "revision": "f25bfb4c69b9e05bf6b8d0862dcedb875c1b0f68",
+          "version": "0.2.4"
         }
       },
       {
@@ -30,7 +30,7 @@
       },
       {
         "package": "SwiftCheck",
-        "repositoryURL": "git@github.com:typelift/SwiftCheck.git",
+        "repositoryURL": "https://github.com/typelift/SwiftCheck",
         "state": {
           "branch": null,
           "revision": "077c096c3ddfc38db223ac8e525ad16ffb987138",

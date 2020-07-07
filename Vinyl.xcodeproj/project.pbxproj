@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3706EE4124B4831200DEBBD7 /* SwiftCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 3706EE4024B4831200DEBBD7 /* SwiftCheck */; };
 		3764DFD92216E7BC001040E2 /* vinyl_single_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFD82216E7BC001040E2 /* vinyl_single_2.json */; };
 		3764DFDA2216E7BC001040E2 /* vinyl_single_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFD82216E7BC001040E2 /* vinyl_single_2.json */; };
 		3764DFDB2216E7BC001040E2 /* vinyl_single_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFD82216E7BC001040E2 /* vinyl_single_2.json */; };
 		3764DFDD2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
 		3764DFDE2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
 		3764DFDF2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
-		376A421123DF369300702D0B /* SwiftCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 376A421023DF369300702D0B /* SwiftCheck */; };
 		4CD295DC1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
 		4CD295DD1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
 		4CD295DE1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
@@ -230,7 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				376A421123DF369300702D0B /* SwiftCheck in Frameworks */,
+				3706EE4124B4831200DEBBD7 /* SwiftCheck in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,7 +477,7 @@
 			);
 			name = "Vinyl-tvOS";
 			packageProductDependencies = (
-				376A421023DF369300702D0B /* SwiftCheck */,
+				3706EE4024B4831200DEBBD7 /* SwiftCheck */,
 			);
 			productName = "Vinyl-tvOS";
 			productReference = 7DBD4CA91C79CC4C008C5487 /* Vinyl.framework */;
@@ -586,7 +586,7 @@
 			);
 			mainGroup = C75D78FC1C6DFE30004B92A9;
 			packageReferences = (
-				376A420F23DF369300702D0B /* XCRemoteSwiftPackageReference "SwiftCheck" */,
+				3706EE3F24B4831100DEBBD7 /* XCRemoteSwiftPackageReference "SwiftCheck" */,
 			);
 			productRefGroup = C75D79071C6DFE30004B92A9 /* Products */;
 			projectDirPath = "";
@@ -1278,9 +1278,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		376A420F23DF369300702D0B /* XCRemoteSwiftPackageReference "SwiftCheck" */ = {
+		3706EE3F24B4831100DEBBD7 /* XCRemoteSwiftPackageReference "SwiftCheck" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:typelift/SwiftCheck.git";
+			repositoryURL = "https://github.com/typelift/SwiftCheck";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.12.0;
@@ -1289,9 +1289,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		376A421023DF369300702D0B /* SwiftCheck */ = {
+		3706EE4024B4831200DEBBD7 /* SwiftCheck */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 376A420F23DF369300702D0B /* XCRemoteSwiftPackageReference "SwiftCheck" */;
+			package = 3706EE3F24B4831100DEBBD7 /* XCRemoteSwiftPackageReference "SwiftCheck" */;
 			productName = SwiftCheck;
 		};
 /* End XCSwiftPackageProductDependency section */
