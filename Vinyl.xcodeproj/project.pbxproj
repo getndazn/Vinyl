@@ -14,6 +14,7 @@
 		3764DFDD2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
 		3764DFDE2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
 		3764DFDF2216E7F3001040E2 /* vinyl_single_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 3764DFDC2216E7F3001040E2 /* vinyl_single_1.json */; };
+		37A4EA67242C8DB7002F29E2 /* SwiftCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 37A4EA66242C8DB7002F29E2 /* SwiftCheck */; };
 		4CD295DC1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
 		4CD295DD1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
 		4CD295DE1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
@@ -239,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DBD4CB31C79CC4D008C5487 /* Vinyl.framework in Frameworks */,
+				37A4EA67242C8DB7002F29E2 /* SwiftCheck in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +500,9 @@
 				7DBD4CB51C79CC4D008C5487 /* PBXTargetDependency */,
 			);
 			name = "Vinyl-tvOSTests";
+			packageProductDependencies = (
+				37A4EA66242C8DB7002F29E2 /* SwiftCheck */,
+			);
 			productName = "Vinyl-tvOSTests";
 			productReference = 7DBD4CB21C79CC4D008C5487 /* Vinyl-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
