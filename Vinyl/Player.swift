@@ -8,28 +8,49 @@
 
 import Foundation
 
+enum SeekResult {
+    case found(track: Track)
+    case notFound
+    case multipleFound(tracks: [Track])
+}
+
 struct Player {
     
     let vinyl: Vinyl
     let trackMatchers: [TrackMatcher]
     
-    fileprivate func seekTrack(for request: Request) -> Track? {
-        return vinyl.tracks.first { track in
-            trackMatchers.all { matcher in matcher.matchable(track: track, for: request) }
+    private func seekTrack(for request: Request)  -> SeekResult {
+
+        let matchingTracks = vinyl.tracks.filter {
+            track in
+            return trackMatchers.all { matcher in matcher.matchable(track: track, for: request) }
+        }
+
+        switch matchingTracks.count {
+        case 0:
+            return .notFound
+        case 1:
+            return .found(track: matchingTracks[0])
+        default:
+            return .multipleFound(tracks: matchingTracks)
         }
     }
     
     func playTrack(for request: Request) throws -> (data: Data?, response: URLResponse?, error: Error?) {
-        
-        guard let track = self.seekTrack(for: request) else {
+
+        switch self.seekTrack(for: request) {
+        case .found(let track):
+            print("Playing vinyl for: " + (request.url?.absoluteString ?? "(no url)"))
+            return (data: track.response.body as Data?, response: track.response.urlResponse, error: track.response.error)
+        case .multipleFound:
+            throw TurntableError.multipleTracksFound
+        case .notFound:
             throw TurntableError.trackNotFound
         }
-        print("Playing vinyl for: " + (request.url?.absoluteString ?? "(no url)"))
-        return (data: track.response.body as Data?, response: track.response.urlResponse, error: track.response.error)
     }
     
     func trackExists(for request: Request) -> Bool {
-        if let _ = self.seekTrack(for: request) {
+        if case .found = self.seekTrack(for: request) {
             return true
         }
         

@@ -9,7 +9,8 @@
 import Foundation
 
 enum TurntableError: Error {
-    
+
+    case multipleTracksFound
     case trackNotFound
     case noRecordingPath
 }
