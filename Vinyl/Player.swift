@@ -41,9 +41,11 @@ struct Player {
         switch self.seekTrack(for: request) {
         case .found(let track):
             print("Playing vinyl for: " + (request.url?.absoluteString ?? "(no url)"))
-            return (data: track.response.body as Data?, response: track.response.urlResponse, error: track.response.error)
-        case .multipleFound:
-            throw TurntableError.multipleTracksFound
+            return track.asNetworkResponse()
+        case .multipleFound(let tracks):
+            print("Warning: Found multiple tracks for request \(request)")
+            return tracks[0].asNetworkResponse()
+
         case .notFound:
             throw TurntableError.trackNotFound
         }
@@ -55,5 +57,14 @@ struct Player {
         }
         
         return false
+    }
+}
+
+private extension Track {
+    func asNetworkResponse() -> (data: Data?, response: URLResponse?, error: Error?) {
+        (
+        data: response.body as Data?,
+        response: response.urlResponse,
+        error: response.error)
     }
 }
