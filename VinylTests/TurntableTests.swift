@@ -335,7 +335,7 @@ class TurntableTests: XCTestCase {
                 
                 XCTAssertTrue(httpResponse.url == track.response.urlResponse?.url)
                 
-                tracks.remove(at: tracks.index(of: track)!)
+                tracks.remove(at: tracks.firstIndex(of: track)!)
             }
             
             if tracks.isEmpty {
