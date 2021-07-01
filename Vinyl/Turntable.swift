@@ -29,7 +29,7 @@ public final class Turntable: URLSession {
     
     public init(
         configuration: TurntableConfiguration,
-        requestMatcherRegistry: RequestMatcherRegistry,
+        requestMatcherTypes: [RequestMatcherType],
         delegateQueue: OperationQueue? = nil,
         urlSession: URLSession? = nil) {
         
@@ -41,7 +41,7 @@ public final class Turntable: URLSession {
             operationQueue.maxConcurrentOperationCount = 1
         }
 
-        self.requestMatcherRegistry = requestMatcherRegistry
+        self.requestMatcherRegistry = RequestMatcherRegistry(types: requestMatcherTypes)
 
         if configuration.recodingEnabled {
             recorder = Recorder(
@@ -56,22 +56,23 @@ public final class Turntable: URLSession {
     
     public convenience init(
         vinyl: Vinyl,
-        requestMatcherRegistry: RequestMatcherRegistry,
+        requestMatcherTypes: [RequestMatcherType],
         turntableConfiguration: TurntableConfiguration = TurntableConfiguration(),
         delegateQueue: OperationQueue? = nil,
         urlSession: URLSession? = nil) {
 
         self.init(
             configuration: turntableConfiguration,
-            requestMatcherRegistry: requestMatcherRegistry,
+            requestMatcherTypes: requestMatcherTypes,
             delegateQueue: delegateQueue,
             urlSession: urlSession)
         player = Turntable.createPlayer(with: vinyl, configuration: turntableConfiguration)
     }
     
     public convenience init(
-        vinylName: String, baseVinylName: String? = nil,
-        requestMatcherRegistry: RequestMatcherRegistry,
+        vinylName: String,
+        baseVinylName: String? = nil,
+        requestMatcherTypes: [RequestMatcherType],
         bundle: Bundle = testingBundle(),
         turntableConfiguration: TurntableConfiguration = TurntableConfiguration(),
         delegateQueue: OperationQueue? = nil,
@@ -95,7 +96,7 @@ public final class Turntable: URLSession {
         let vinyl = Vinyl(plastic: combinedPlastic ?? [])
         self.init(
             vinyl: vinyl,
-            requestMatcherRegistry: requestMatcherRegistry,
+            requestMatcherTypes: requestMatcherTypes,
             turntableConfiguration: turntableConfiguration,
             delegateQueue: delegateQueue,
             urlSession: urlSession)
