@@ -11,16 +11,20 @@ import Foundation
 public final class Recorder {
     var wax: Wax
     let recordingPath: String?
+    let requestMatcherRegistry: RequestMatcherRegistry
 
-    public init(wax: Wax, recordingPath: String?) {
+    public init(wax: Wax, recordingPath: String?, requestMatcherRegistry: RequestMatcherRegistry) {
         self.wax = wax
         self.recordingPath = recordingPath
+        self.requestMatcherRegistry = requestMatcherRegistry
     }
 }
 
 extension Recorder {
     func saveTrack(with request: Request, response: Response) {
-        wax.add(track: Track(request: request, response: response))
+        wax.add(
+            track: Track(request: request, response: response),
+            registry: requestMatcherRegistry)
     }
     
     func saveTrack(with request: Request, urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {

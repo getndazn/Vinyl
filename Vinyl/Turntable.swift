@@ -24,9 +24,14 @@ public final class Turntable: URLSession {
     fileprivate var player: Player?
     public var recorder: Recorder?
     public var recordingSession: URLSession?
+    public var requestMatcherRegistry: RequestMatcherRegistry
     fileprivate let operationQueue: OperationQueue
     
-    public init(configuration: TurntableConfiguration, delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
+    public init(
+        configuration: TurntableConfiguration,
+        requestMatcherRegistry: RequestMatcherRegistry,
+        delegateQueue: OperationQueue? = nil,
+        urlSession: URLSession? = nil) {
         
         turntableConfiguration = configuration
         if let delegateQueue = delegateQueue {
@@ -35,26 +40,43 @@ public final class Turntable: URLSession {
             operationQueue = OperationQueue()
             operationQueue.maxConcurrentOperationCount = 1
         }
-        
+
+        self.requestMatcherRegistry = requestMatcherRegistry
+
         if configuration.recodingEnabled {
-            recorder = Recorder(wax: Wax(tracks: []), recordingPath: configuration.recordingPath)
+            recorder = Recorder(
+                wax: Wax(tracks: []),
+                recordingPath: configuration.recordingPath,
+                requestMatcherRegistry: requestMatcherRegistry)
         }
         recordingSession = urlSession ?? URLSession.shared
 
         super.init()
     }
     
-    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
-        self.init(configuration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
+    public convenience init(
+        vinyl: Vinyl,
+        requestMatcherRegistry: RequestMatcherRegistry,
+        turntableConfiguration: TurntableConfiguration = TurntableConfiguration(),
+        delegateQueue: OperationQueue? = nil,
+        urlSession: URLSession? = nil) {
+
+        self.init(
+            configuration: turntableConfiguration,
+            requestMatcherRegistry: requestMatcherRegistry,
+            delegateQueue: delegateQueue,
+            urlSession: urlSession)
         player = Turntable.createPlayer(with: vinyl, configuration: turntableConfiguration)
     }
     
-    public convenience init(cassetteName: String, bundle: Bundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
-        let vinyl = Vinyl(plastic: Turntable.createPlastic(cassette: cassetteName, bundle: bundle))
-        self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
-    }
-    
-    public convenience init(vinylName: String, baseVinylName: String? = nil, bundle: Bundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
+    public convenience init(
+        vinylName: String, baseVinylName: String? = nil,
+        requestMatcherRegistry: RequestMatcherRegistry,
+        bundle: Bundle = testingBundle(),
+        turntableConfiguration: TurntableConfiguration = TurntableConfiguration(),
+        delegateQueue: OperationQueue? = nil,
+        urlSession: URLSession? = nil) {
+        
         let plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
 
         var combinedPlastic = plastic
@@ -71,12 +93,24 @@ public final class Turntable: URLSession {
         }
 
         let vinyl = Vinyl(plastic: combinedPlastic ?? [])
-        self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
+        self.init(
+            vinyl: vinyl,
+            requestMatcherRegistry: requestMatcherRegistry,
+            turntableConfiguration: turntableConfiguration,
+            delegateQueue: delegateQueue,
+            urlSession: urlSession)
 
         let recordingVinyl = Vinyl(plastic: plastic ?? [])
         switch turntableConfiguration.recordingMode {
         case .missingVinyl, .missingTracks:
-            recorder = Recorder(wax: Wax(vinyl: recordingVinyl, baseVinyl: baseVinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+            let recordingPath = self.recordingPath(
+                fromConfiguration: turntableConfiguration,
+                vinylName: vinylName,
+                bundle: bundle)
+            recorder = Recorder(
+                wax: Wax(vinyl: recordingVinyl, baseVinyl: baseVinyl),
+                recordingPath: recordingPath,
+                requestMatcherRegistry: requestMatcherRegistry)
         default:
             recorder = nil
             recordingSession = nil
@@ -249,7 +283,8 @@ extension Turntable {
 
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
-            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+            recorder = Recorder(
+                wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle), requestMatcherRegistry: requestMatcherRegistry)
         default:
             recorder = nil
             recordingSession = nil
