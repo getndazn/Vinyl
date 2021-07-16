@@ -23,10 +23,9 @@ public struct Wax {
         self.tracks.append(contentsOf: tracks)
     }
     
-    mutating func add(track: Track) {
+    mutating func add(track: Track,  registry: RequestMatcherRegistry) {
         if baseTracks.filter({
             (baseTrack) -> Bool in
-            let registry = RequestMatcherRegistry(types: [.body, .method, .query, .path])
             return registry.matchableRequests(request: track.request, with: baseTrack.request)
         }).isEmpty {
             tracks.append(track)
