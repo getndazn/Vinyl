@@ -8,23 +8,54 @@
 
 import Foundation
 
+public enum ExcludedRequestType {
+    case host(String)
+    case hostOtherThan(String)
+    case custom(ExcludedRequest)
+}
+
+public protocol ExcludedRequest {
+    func shouldExclude(request: Request) -> Bool
+}
+
 public final class Recorder {
     var wax: Wax
     let recordingPath: String?
     let requestMatcherRegistry: RequestMatcherRegistry
+    let excludedRequestTypes: [ExcludedRequestType]
 
-    public init(wax: Wax, recordingPath: String?, requestMatcherRegistry: RequestMatcherRegistry) {
+    public init(wax: Wax,
+                recordingPath: String?,
+                requestMatcherRegistry: RequestMatcherRegistry,
+                excludedRequestTypes: [ExcludedRequestType]) {
         self.wax = wax
         self.recordingPath = recordingPath
         self.requestMatcherRegistry = requestMatcherRegistry
+        self.excludedRequestTypes = excludedRequestTypes
+    }
+
+    private static func excludedRequest(for excludedRequestType: ExcludedRequestType) -> ExcludedRequest {
+        switch excludedRequestType {
+        case .host(let host):
+            return HostExcludedRequest(host: host)
+        case .custom(let customRequestMatcher):
+            return customRequestMatcher
+        case .hostOtherThan(let host):
+            return HostOtherThanExcludedRequest(host: host)
+        }
     }
 }
 
 extension Recorder {
     func saveTrack(with request: Request, response: Response) {
-        wax.add(
-            track: Track(request: request, response: response),
-            registry: requestMatcherRegistry)
+        let shouldExclude = excludedRequestTypes.reduce(false, { result, exclude in
+            result || Recorder.excludedRequest(for: exclude).shouldExclude(request: request)
+        })
+        if !shouldExclude {
+            wax.add(
+                track: Track(request: request, response: response),
+                registry: requestMatcherRegistry)
+        }
     }
     
     func saveTrack(with request: Request, urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {
@@ -56,4 +87,20 @@ extension Recorder {
         
         print("Vinyl recorded to: \(recordingPath)")
     }
+}
+
+private struct HostExcludedRequest: ExcludedRequest {
+    let host: String
+    func shouldExclude(request: Request) -> Bool {
+        request.url?.host == host
+    }
+
+}
+
+private struct HostOtherThanExcludedRequest: ExcludedRequest {
+    let host: String
+    func shouldExclude(request: Request) -> Bool {
+        request.url?.host != host
+    }
+
 }
