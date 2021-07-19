@@ -23,7 +23,7 @@ public final class Turntable: URLSession {
     fileprivate let turntableConfiguration: TurntableConfiguration
     fileprivate var player: Player?
     fileprivate var excludedRequestTypes: [ExcludedRequestType]
-    public var recorder: Recorder?
+    public var recorders: [Recorder] = []
     public var recordingSession: URLSession?
     public var requestMatcherRegistry: RequestMatcherRegistry
     fileprivate let operationQueue: OperationQueue
@@ -45,13 +45,7 @@ public final class Turntable: URLSession {
 
         self.requestMatcherRegistry = RequestMatcherRegistry(types: requestMatcherTypes)
         self.excludedRequestTypes = excludedRequestTypes
-        if configuration.recodingEnabled {
-            recorder = Recorder(
-                wax: Wax(tracks: []),
-                recordingPath: configuration.recordingPath,
-                requestMatcherRegistry: requestMatcherRegistry,
-                excludedRequestTypes: excludedRequestTypes)
-        }
+
         recordingSession = urlSession ?? URLSession.shared
 
         super.init()
@@ -72,68 +66,14 @@ public final class Turntable: URLSession {
         player = Turntable.createPlayer(with: vinyl, configuration: turntableConfiguration)
     }
     
-    public convenience init(
-        vinylName: String,
-        baseVinylName: String? = nil,
-        requestMatcherTypes: [RequestMatcherType],
-        excludedRequestTypes: [ExcludedRequestType] = [],
-        bundle: Bundle = testingBundle(),
-        turntableConfiguration: TurntableConfiguration = TurntableConfiguration(),
-        delegateQueue: OperationQueue? = nil,
-        urlSession: URLSession? = nil) {
-        
-        let plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
-
-        var combinedPlastic = plastic
-        var baseVinyl: Vinyl?
-        if let baseVinylName = baseVinylName,
-            let basePlastic = Turntable.createPlastic(vinyl: baseVinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode, isBaseVinyl: true) {
-
-            baseVinyl = Vinyl(plastic: basePlastic)
-            if combinedPlastic != nil {
-                combinedPlastic?.append(contentsOf: basePlastic)
-            } else {
-                combinedPlastic = basePlastic
-            }
-        }
-
-        let vinyl = Vinyl(plastic: combinedPlastic ?? [])
-        self.init(
-            vinyl: vinyl,
-            requestMatcherTypes: requestMatcherTypes,
-            turntableConfiguration: turntableConfiguration,
-            delegateQueue: delegateQueue,
-            urlSession: urlSession)
-
-        let recordingVinyl = Vinyl(plastic: plastic ?? [])
-        switch turntableConfiguration.recordingMode {
-        case .missingVinyl, .missingTracks:
-            let recordingPath = self.recordingPath(
-                fromConfiguration: turntableConfiguration,
-                vinylName: vinylName,
-                bundle: bundle)
-            recorder = Recorder(
-                wax: Wax(vinyl: recordingVinyl, baseVinyl: baseVinyl),
-                recordingPath: recordingPath,
-                requestMatcherRegistry: requestMatcherRegistry,
-                excludedRequestTypes: excludedRequestTypes)
-        default:
-            recorder = nil
-            recordingSession = nil
-        }
-    }
-    
     deinit {
         stopRecording()
     }
     
     public func stopRecording() {
-        guard let recorder = recorder else {
-            return
-        }
-        
+
         do {
-            try recorder.persist()
+            try recorders.forEach { try $0.persist() }
         }
         catch TurntableError.noRecordingPath {
             fatalError("💣 no path was configured for saving the recording.")
@@ -170,14 +110,11 @@ public final class Turntable: URLSession {
     }
 
     fileprivate func recordingHandler(request: URLRequest, fromData bodyData: Data? = nil, completionHandler: @escaping RequestCompletionHandler) -> RequestCompletionHandler {
-        guard let recorder = recorder else {
-            fatalError("No recording started.")
-        }
         
         return {
             data, response, error in
             
-            recorder.saveTrack(with: self.transform(request: request, bodyData: bodyData), urlResponse: response as? HTTPURLResponse, body: data, error: error)
+            self.recorders.forEach { $0.saveTrack(with: self.transform(request: request, bodyData: bodyData), urlResponse: response as? HTTPURLResponse, body: data, error: error) }
             
             self.operationQueue.addOperation {
                 completionHandler(data, response, error)
@@ -289,16 +226,18 @@ extension Turntable {
 
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
-            recorder = Recorder(
-                wax: Wax(vinyl: vinyl),
-                recordingPath: recordingPath(
-                    fromConfiguration: turntableConfiguration,
-                    vinylName: vinylName,
-                    bundle: bundle),
-                requestMatcherRegistry: requestMatcherRegistry,
-                excludedRequestTypes: excludedRequestTypes)
+            recorders.append(
+                Recorder(
+                    wax: Wax(vinyl: vinyl),
+                    recordingPath: recordingPath(
+                        fromConfiguration: turntableConfiguration,
+                        vinylName: vinylName,
+                        bundle: bundle),
+                    requestMatcherRegistry: requestMatcherRegistry,
+                    excludedRequestTypes: excludedRequestTypes)
+        )
         default:
-            recorder = nil
+            recorders = []
             recordingSession = nil
         }
     }
