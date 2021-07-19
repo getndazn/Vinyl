@@ -22,6 +22,7 @@ public final class Turntable: URLSession {
     var errorHandler: ErrorHandler = DefaultErrorHandler()
     fileprivate let turntableConfiguration: TurntableConfiguration
     fileprivate var player: Player?
+    fileprivate var excludedRequestTypes: [ExcludedRequestType]
     public var recorder: Recorder?
     public var recordingSession: URLSession?
     public var requestMatcherRegistry: RequestMatcherRegistry
@@ -30,6 +31,7 @@ public final class Turntable: URLSession {
     public init(
         configuration: TurntableConfiguration,
         requestMatcherTypes: [RequestMatcherType],
+        excludedRequestTypes: [ExcludedRequestType] = [],
         delegateQueue: OperationQueue? = nil,
         urlSession: URLSession? = nil) {
         
@@ -42,12 +44,13 @@ public final class Turntable: URLSession {
         }
 
         self.requestMatcherRegistry = RequestMatcherRegistry(types: requestMatcherTypes)
-
+        self.excludedRequestTypes = excludedRequestTypes
         if configuration.recodingEnabled {
             recorder = Recorder(
                 wax: Wax(tracks: []),
                 recordingPath: configuration.recordingPath,
-                requestMatcherRegistry: requestMatcherRegistry)
+                requestMatcherRegistry: requestMatcherRegistry,
+                excludedRequestTypes: excludedRequestTypes)
         }
         recordingSession = urlSession ?? URLSession.shared
 
@@ -73,6 +76,7 @@ public final class Turntable: URLSession {
         vinylName: String,
         baseVinylName: String? = nil,
         requestMatcherTypes: [RequestMatcherType],
+        excludedRequestTypes: [ExcludedRequestType] = [],
         bundle: Bundle = testingBundle(),
         turntableConfiguration: TurntableConfiguration = TurntableConfiguration(),
         delegateQueue: OperationQueue? = nil,
@@ -111,7 +115,8 @@ public final class Turntable: URLSession {
             recorder = Recorder(
                 wax: Wax(vinyl: recordingVinyl, baseVinyl: baseVinyl),
                 recordingPath: recordingPath,
-                requestMatcherRegistry: requestMatcherRegistry)
+                requestMatcherRegistry: requestMatcherRegistry,
+                excludedRequestTypes: excludedRequestTypes)
         default:
             recorder = nil
             recordingSession = nil
@@ -285,7 +290,13 @@ extension Turntable {
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
             recorder = Recorder(
-                wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle), requestMatcherRegistry: requestMatcherRegistry)
+                wax: Wax(vinyl: vinyl),
+                recordingPath: recordingPath(
+                    fromConfiguration: turntableConfiguration,
+                    vinylName: vinylName,
+                    bundle: bundle),
+                requestMatcherRegistry: requestMatcherRegistry,
+                excludedRequestTypes: excludedRequestTypes)
         default:
             recorder = nil
             recordingSession = nil
